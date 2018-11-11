@@ -1,0 +1,200 @@
+<?php 
+use Basico\View\Helper\UserInfo;
+use Basico\Controller\CrudAjaxController;
+use Doctrine\ORM\EntityManager;
+use Basico\Controller\CrudAbstractController;
+//use Basico\Service\PegaImagem;
+
+//recupera o perfil do usuário logado
+$userPerfil = $this->UserInfo()->getPerfil();
+
+
+
+if ($userPerfil == 'funcionario') {
+	$urlLogout = $this->url('logout');
+	$urlHome = $this->url('home');
+} 
+else {
+	throw new \Exception('Falha ao obter a url de logout. Perfil não definido.');
+}
+
+
+if ($userPerfil == 'funcionario') {
+
+		$imageMax = '<img src="/assets/images/users/no-image.jpg" alt="'.$this->UserInfo()->getNome().'" />';
+		$imageMini = '<img src="/assets/images/users/no-image.jpg" alt="'.$this->UserInfo()->getNome().'" />';
+	
+} 
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<!-- META SECTION -->
+	<?php echo $this->headTitle(); ?>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- END META SECTION -->
+
+	<!-- Le styles -->
+	
+    <?php
+	echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath () . '/img/favicon.ico'))
+				->appendStylesheet($this->basePath() . '/css/theme-default.css')
+				->appendStylesheet($this->basePath() . '/css/app/default.css?v=1.1');
+
+	?>
+</head>
+<body>
+	<!-- START PAGE CONTAINER -->
+	<div class="page-container">
+
+		<!-- START PAGE SIDEBAR -->
+		<div class="page-sidebar">
+
+			<!-- START X-NAVIGATION -->
+			<ul class="x-navigation">
+				<li class="xn-logo">
+					<a href="<?php echo $urlHome; ?>">Pedido</a> 
+					<a href="#" class="x-navigation-control"></a>
+				</li>
+				<li class="xn-profile">
+					<a href="#" class="profile-mini"> 
+						<!-- <img src="/assets/images/users/no-image.jpg" alt="<php echo $this->UserInfo()->getNome(); ?>" /> -->
+						<?php echo $imageMini;?>
+					</a>
+					<div class="profile">
+						<div class="profile-image">
+							<!-- <img src="/assets/images/users/no-image.jpg" alt="<hp echo $this->UserInfo()->getNome(); ?>" /> -->
+							<?php echo $imageMax;?>
+						</div>
+						<div class="profile-data">
+							<div class="profile-data-name"><?php echo $this->UserInfo()->getNome(); ?></div>
+						</div>
+                        <?php if ($userPerfil == 'funcionario') { ?>
+                            <div class="profile-controls">
+                                <a href="#" class="profile-control-left" id="info-button"><span class="fa fa-info"></span></a>
+                                <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging" id="info-box" style="display: none;">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Info do Sistema</h3>
+                                    </div>
+                                    <div class="panel-body list-group list-group-contacts scroll" style="max-height: 200px;">
+                                       
+                                    </div>
+
+                                </div>
+
+                               
+                            </div>
+                        <?php }?>
+
+					</div>
+				</li>
+                    
+                <?php
+				echo $this->navigation('Navigation')->menu()->setPartial('partial/navigation/navigation.phtml');
+				?>
+                </ul>
+			<!-- END X-NAVIGATION  -->
+		</div>
+		<!-- END PAGE SIDEBAR -->
+
+		<!-- PAGE CONTENT -->
+		<div class="page-content">
+
+			<!-- START X-NAVIGATION VERTICAL -->
+			<ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+				<!-- TOGGLE NAVIGATION -->
+				<li class="xn-icon-button"><a href="#" class="x-navigation-minimize"><span
+						class="fa fa-dedent"></span></a></li>
+				<!-- END TOGGLE NAVIGATION -->
+				
+				<!-- POWER OFF -->
+				<li class="xn-icon-button pull-right last">
+					<a href="#"><span class="fa fa-power-off"></span></a>
+					<ul class="xn-drop-left animated zoomIn">
+						<li><a href="<?php echo $urlLogout; ?>"><span class="fa fa-sign-out"></span> Sair</a></li>
+						
+					</ul>
+				</li>
+				<!-- END POWER OFF -->
+				
+								
+			</ul>
+			<!-- END X-NAVIGATION VERTICAL -->
+
+
+			<!-- CONTENT -->
+			<?php echo $this->content; ?>
+			
+			
+        	
+            <!-- /CONTENT -->
+
+		</div>
+		<!-- END PAGE CONTENT -->
+	</div>
+	<!-- END PAGE CONTAINER -->
+
+	<!-- MESSAGE BOX - LOGOUT -->
+	<div class="message-box animated fadeIn" data-sound="alert"
+		id="mb-signout">
+		<div class="mb-container">
+			<div class="mb-middle">
+				<div class="mb-title">
+					<span class="fa fa-sign-out"></span> Deseja mesmo <strong>Sair</strong> ?
+				</div>
+				<div class="mb-content">
+					<!-- <p>Tem certeza que deseja sair do getPedido?</p> 
+					<p>Clique em Não se deseja permanecer no sistema. Clique em Sim se deseja sair.</p> -->
+				</div>
+				<div class="mb-footer">
+					<div class="pull-right">
+						<a href="<?php echo $urlLogout; ?>" class="btn btn-success btn-lg">Sim</a>
+						<button class="btn btn-default btn-lg mb-control-close">Não</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END MESSAGE BOX - LOGOUT -->
+
+	<!-- START PRELOADS -->
+	<audio id="audio-alert" src="<?php echo $this->basePath(); ?>/audio/alert.mp3" preload="auto"></audio>
+	<audio id="audio-fail" src="<?php echo $this->basePath(); ?>/audio/fail.mp3" preload="auto"></audio>
+	<!-- END PRELOADS -->
+
+	<!-- START SCRIPTS -->	
+		<script src="<?php echo $this->basePath(). '/js/plugins/jquery/jquery.min.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/jquery/jquery-ui.min.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/bootstrap/bootstrap.min.js'; ?>"></script>
+		
+		<!-- Plugins List -->
+		<script src="<?php echo $this->basePath(). '/js/plugins/bootstrap/bootstrap-datepicker.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/bootstrap/bootstrap-timepicker.min.js'; ?>"></script>		        
+		<script src="<?php echo $this->basePath(). '/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/mylibs/jquery.MessageBox.js'; ?>"></script>		
+		<script src="<?php echo $this->basePath(). '/js/plugins/maskedinput/jquery.maskedinput.min.js'; ?>"></script>				
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/jquery.noty.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/layouts/topCenter.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/layouts/topLeft.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/layouts/topRight.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/layouts/centerRight.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/layouts/bottomRight.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/layouts/center.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/noty/themes/default.js'; ?>"></script>
+		<!-- End Plugins List -->		
+		
+		<?php echo $this->headScript(); ?>
+		
+		<script src="<?php echo $this->basePath(). '/js/plugins.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/actions.js'; ?>"></script>
+		<script src="<?php echo $this->basePath(). '/js/plugins/bootstrap/locale/bootstrap-datepicker.pt-BR.js'; ?>"></script>
+			
+		
+    <!-- END SCRIPTS -->
+</body>
+</html>

@@ -1,0 +1,55 @@
+<?php 
+$this->form->prepare();
+echo $this->form()->openTag($this->form);
+?>
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3><i class="fa fa-edit"></i> Produto</h3>
+</div>
+<div class="modal-body">	
+	<div class="row">
+		<div class="col-md-12">						
+			<?php echo $this->mensagens; ?>
+			
+			<div class="form-group">			
+				<?php echo $this->FormularioCampo($this->form, 'idPedidoProduto', 2); ?>
+				<?php echo $this->FormularioCampo($this->form, 'ProdutoIdProduto', 0); ?>
+				<?php echo $this->FormularioCampo($this->form, 'PedidoIdPedido', 0); ?>
+				<?php echo $this->FormularioCampo($this->form, 'NomeProduto', 12); ?>				
+			</div>
+			<div class="form-group">
+				<?php echo $this->FormularioCampo($this->form, 'QtdeProduto', 3); ?>
+				<?php echo $this->FormularioCampo($this->form, 'ValorUnitario', 4); ?>
+				
+					<?php echo $this->FormularioCampo($this->form, 'SubTotal', 4); ?>
+				
+			</div>
+						
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Fechar</button>
+	<button type="submit" class="btn btn-success">Salvar <span class="fa fa-floppy-o fa-right"></span></button>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+
+
+<?php
+// plugin js da página
+
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/bootstrap/bootstrap-datepicker.js');
+$this->headScript()->appendFile($this->basePath() . '/js/plugins.js');
+$this->headScript()->appendFile($this->basePath() . '/js/app/mascaras.js');
+
+// inline js script
+$jsPagina = "var urlSaveModalContato = '{$this->url('comercial', array('controller' => 'pedido-produto', 'action' => 'save-ajax'))}'";
+$this->headScript()->appendScript($jsPagina, 'text/javascript');
+
+// js da página
+$this->headScript()->appendFile($this->basePath() . '/js/app/comercial/pedido-produto/form.modal.processa.js');
+$this->headScript()->appendFile($this->basePath() . '/js/app/comercial/pedido-produto/form-produto.js');
+
+echo $this->headScript();
+?>

@@ -1,0 +1,23 @@
+<?php
+try {
+$userInfo = $this->UserInfo('Main');
+?>
+
+<!-- Start of the main content -->
+<div id="main_content">
+
+    <div class="grid_12" style="margin: auto; float: none; display: block;">
+    	<h2>Bem Vindo<?php echo ($userInfo ? ', '.$userInfo->getNome() : ''); ?></h2>	
+    </div>
+    
+    <div class="grid_10" style="margin: auto; float: none; display: block;">
+        <div class="box">
+            <?php echo $this->mensagens; ?>
+    	</div>
+    </div>    
+</div>
+<?php 
+} catch (\Exception $e){
+    echo $e->getMessage();
+}
+?>

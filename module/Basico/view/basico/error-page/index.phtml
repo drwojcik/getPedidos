@@ -1,0 +1,60 @@
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb push-down-0">
+	<li>&nbsp;</li>	
+</ul>
+<!-- END BREADCRUMB -->                                                
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+	<div class="row">
+		<div class="col-md-12">			
+			<?php
+			if (!isset($_SESSION['erro_nomearquivo']) || empty($_SESSION['erro_nomearquivo'])) {
+			?>			
+				<div class="error-container">
+					<div class="error-text"><?php echo $this->titulo; ?></div>
+					<div class="error-subtext" style="text-align: justify !important;"><?php echo $this->mensagem; ?></div>
+					<div class="error-actions">                                
+						<div class="row">
+							<div class="col-md-12">
+								<a class="btn btn-info btn-block btn-lg" href="<?php echo $this->url('home'); ?>">
+									Página Inicial
+								</a>
+							</div>
+						</div>                                
+					</div>				
+				</div>			
+			<?php 
+			} else {
+			?>			
+				<div class="error-container">
+					<div class="error-text">Erro ao processar a página</div>
+					<div class="error-subtext" style="text-align: justify !important;">
+						<div class="alert alert-warning" role="alert">							
+							<strong>Isso não é bom</strong><br><br>
+							Ocorreu um erro ao realizar o processamento da página. 
+			                Nosso suporte técnico já foi notificado sobre o erro ocorrido, mas caso deseje
+			                você pode <a href="/log/<?php echo $_SESSION['erro_nomearquivo']; ?>">clicar aqui</a> 
+			                para baixar o arquivo que contém detalhes sobre o que ocorreu
+			                e nos enviar através do e-mail 
+			                <a href="mailto:suporte@softwar.com.br">suporte@softwar.com.br</a>
+						</div>
+					</div>
+					<div class="error-actions">                                
+						<div class="row">
+							<div class="col-md-12">
+								<a class="btn btn-info btn-block btn-lg" href="<?php echo $this->url('home'); ?>">
+									Página Inicial
+								</a>
+							</div>
+						</div>                                
+					</div>				
+				</div>			
+			<?php
+				unset($_SESSION['erro_nomearquivo']);
+			}
+			?>
+		</div>
+	</div>													
+</div>                
+<!-- END PAGE CONTENT WRAPPER -->

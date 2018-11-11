@@ -1,0 +1,34 @@
+
+div.numberedtextarea-wrapper { position: relative; }
+
+div.numberedtextarea-wrapper textarea {
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+div.numberedtextarea-line-numbers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  border: 1px solid #c3c3c3;
+  color: #c3c3c3;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  border-radius-left: 5px;
+}
+
+div.numberedtextarea-number {
+  padding-right: 6px;
+  text-align: right;
+}
+
+.textarea-lines {
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-size: 14px;
+    resize: none;
+}

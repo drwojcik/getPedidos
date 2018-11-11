@@ -1,0 +1,89 @@
+<?php
+// plugins js da tela
+$this->headScript()->prependFile($this->basePath() . '/js/plugins/datatables/jquery.dataTables.min.js');
+$this->headScript()->prependFile($this->basePath() . '/js/mylibs/jquery.dataTables.sort.js');
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/bootstrap/bootstrap-datepicker.js');
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/bootstrap/bootstrap-select.js');
+$this->headScript()->appendFile($this->basePath() . '/js/plugins.js');
+$this->headScript()->appendFile($this->basePath() . '/js/app/form.js');
+
+
+// arquivos js da tela
+$this->headScript()->appendFile($this->basePath() . '/js/app/comercial/carteira/index.js');
+
+// css da página
+$this->headLink()->appendStylesheet($this->basePath() . '/css/app/default.css');
+$this->headLink()->appendStylesheet($this->basePath() . '/css/app/default.table.css');
+echo $this->headLink();
+?>
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+	<li><a href="#">Home</a></li>                    
+	<li>Comercial</li>
+	<li class="active"><a href="#">Produto</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+
+<div class="page-title">
+	<h2> <span class="fa fa-gift"></span> Produtos <small>Crie, altere, remova</small></h2>
+	<a href="<?php echo $this->url('comercial', 
+									array('controller' => 'produto', 'action' => 'new')); ?>" class="btn btn-primary pull-right">
+		<i class="fa fa-file-o"></i> Novo Produto
+	</a>
+	<a href="#" id="carteiraBtnPesquisa" class="btn btn-primary pull-right">
+		<i class="fa fa-search"></i> Pesquisar
+	</a>
+</div>
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+	
+	<div class="row">
+		<div class="col-md-12">	
+		<!-- START Form Pesquisa -->
+			<?php 
+			$form = $this->frmPesquisa;
+			$form->setAttribute('action', $this->url('comercial', array('controller' => 'produto', 'action' => 'index')));					
+			$form->prepare();
+			echo $this->form()->openTag($form);
+			?>
+			<div class="panel panel-success" id="box_CarteiraPesquisa" style="display: none;">
+				<div class="panel-heading">                                
+					<h3 class="panel-title">Carteira de Clientes - Pesquisa</h3>					
+				</div>
+				<div class="panel-body">	
+					<div class="form-group">
+
+						<?php echo $this->FormularioCampo($form, 'SKU', 3); ?>			
+						<?php echo $this->FormularioCampo($form, 'Nome', 3); ?>
+						<?php echo $this->FormularioCampo($form, 'Descricao', 6); ?>				
+					</div>
+				</div>
+				<div class="panel-footer">
+					<button type="submit" class="btn btn-primary pull-right">
+						<i class="fa fa-search"></i> Realizar Pesquisa
+					</button>
+				</div>
+			</div>
+			<?php echo $this->form()->closeTag(); ?>
+			<!-- END Form Pesquisa -->
+			
+			
+			<!-- START DEFAULT DATATABLE -->
+			<div class="panel panel-info">
+				<div class="panel-heading">                                
+					<h3 class="panel-title">Listando Produtos</h3>					
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">												
+						<?php echo $this->tabProdutos; ?>
+					</div>
+				</div>
+			</div>
+			<!-- END DEFAULT DATATABLE -->
+		</div>
+	</div>
+	
+</div>
+<!-- END PAGE CONTENT WRAPPER -->

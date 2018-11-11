@@ -1,0 +1,31 @@
+ 
+/* ==================================================
+ * Table
+ * ================================================== */
+
+.table tbody th.center, .table thead th.center, .table tbody td.center, .table tfoot th.center, .table tfoot td.center {
+	text-align: center;
+}
+.table tbody th.right, .table thead th.right, .table tbody td.right, .table tfoot th.right, .table tfoot td.right {
+	text-align: right;
+}
+
+.table a.showform, .table a.linkOpcoes {
+	margin-right: 10px;
+}
+.table a.showform:last-child, .table a.linkOpcoes:last-child {
+	margin-right: 0;
+}
+.table a.btn-option {
+	margin-right: 10px;
+}
+.table a.btn-option:last-child {
+	margin-right: 0;
+}
+
+/*
+.table th {
+	border-collapse: collapse !important;
+	border-top: solid 1px #CCCCCC !important;
+}
+*/

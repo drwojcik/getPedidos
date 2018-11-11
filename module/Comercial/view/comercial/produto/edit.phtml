@@ -1,0 +1,97 @@
+<?php
+//plugins da tela
+$this->headScript()->appendFile($this->basePath() . '/js/mylibs/jquery.autocomplete.js');
+$this->headScript()->prependFile($this->basePath() . '/js/plugins/datatables/jquery.dataTables.min.js');
+
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/icheck/icheck.min.js');
+
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/bootstrap/bootstrap-datepicker.js');
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/bootstrap/bootstrap-select.js');
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/tagsinput/jquery.tagsinput.min.js');
+$this->headScript()->appendFile($this->basePath() . '/js/mylibs/jquery.maskMoney.js');
+//arquivos js basico para o form
+$this->headScript()->appendFile($this->basePath() . '/js/app/form.js');
+$this->headScript()->appendFile($this->basePath() . '/js/app/mascaras.js');
+
+$this->headScript()->appendFile($this->basePath() . '/js/app/comercial/pedido/form.js');
+
+
+//inclui os arquivos CSS
+//css do plugin autocomplete
+$this->headLink()->appendStylesheet($this->basePath() . '/css/autocomplete.css');
+
+//css da página
+$this->headLink()->appendStylesheet($this->basePath() . '/css/app/default.table.css');
+
+echo $this->headLink();
+?>
+
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+	<li><a href="#">Home</a></li>
+	<li>Comercial</li>
+	<li class="active"><a href="#">Produto</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+
+<div class="page-title">
+	<h2> <span class="fa fa-gift"></span> Produto <small>Alterando registro</small></h2>
+	<a href="<?php echo $this->url('comercial', 
+									array('controller' => 'produto')); ?>" class="btn btn-primary pull-right">
+		<i class="fa fa-arrow-left"></i> Voltar
+	</a>
+</div>
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">	
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			
+			<!-- Exbibe mensagens do controller -->
+			<?php echo $this->mensagens; ?>
+			
+			
+			<?php 
+			$form = $this->form;
+			$form->setAttribute('class', 'form-horizontal');
+			$form->setAttribute('action', $this->url('comercial', array('controller' => 'produto', 'action' => 'edit')));					
+			$form->prepare();
+			echo $this->form()->openTag($form);								
+			?>
+			
+			
+			<div class="panel panel-info">
+				<div class="panel-heading">                                
+					<h3 class="panel-title">Informe os dados do Produto</h3>					
+				</div>
+				<div class="panel-body">	
+				
+					<div class="form-group">
+						<?php echo $this->FormularioCampo($form, 'idProduto', 2); ?>	
+						
+					</div>
+					
+					
+					<div class="form-group">
+						<?php echo $this->FormularioCampo($form, 'Nome', 6); ?>
+						<?php echo $this->FormularioCampo($form, 'SKU', 3); ?>
+						<?php echo $this->FormularioCampo($form, 'Descricao', 6); ?>
+						<?php echo $this->FormularioCampo($form, 'Preco', 3); ?>
+						
+						
+					</div>			
+					
+				</div>
+				
+				<div class="panel-footer">
+					<button type="submit" class="btn btn-success pull-right">
+						<span class="fa fa-floppy-o"></span> Salvar
+					</button>
+				</div>
+			</div>
+			<?php echo $this->form()->closeTag(); ?>
+		</div>
+	</div>
+</div>
+<!-- END PAGE CONTENT WRAPPER --> 

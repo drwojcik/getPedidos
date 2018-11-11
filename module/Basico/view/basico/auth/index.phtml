@@ -1,0 +1,67 @@
+<?php
+//plugins da tela
+$this->headScript()->appendFile($this->basePath() . '/js/plugins/icheck/icheck.min.js');
+
+// js da tela
+$this->headScript()->appendFile($this->basePath() . '/js/app/basico/auth/index.js');
+?>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="login-container login-v2">            
+	<div class="login-box animated fadeInDown">
+		
+		<div class="login-body">
+			<div class="login-title">
+				
+			</div>
+			<div class="login-title"><strong>getPedidos</strong><br />Login</div>
+			
+			<!-- Exbibe mensagens do controller -->
+			<?php echo $this->mensagens; ?>
+		
+			<?php 
+			$form = $this->form;
+			$form->setAttribute('action', $this->url('login'));					
+			$form->prepare();					
+			echo $this->form()->openTag($form);								
+			?>
+				<div class="form-group">
+					<div class="col-md-12">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="fa fa-user"></span>
+							</div>
+							<input type="text" name="Login" class="form-control" placeholder="Login"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="fa fa-lock"></span>
+							</div>                                
+							<input type="password" name="Senha" class="form-control" placeholder="Senha"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<label>
+							<input type='checkbox' id='chk-mostrar-senha' class="icheckbox" value='S' />&nbsp;Mostrar Senha
+						</label>
+					</div>
+				</div>
+         
+            <div class="form-group">
+					<div class="col-md-12">
+						<button class="btn btn-primary btn-lg btn-block">Login</button>
+					</div>
+				</div>
+
+            <?php echo $this->form()->closeTag(); ?>
+		</div>
+		<div class="login-footer">
+			
+		</div>
+	</div>
+</div>

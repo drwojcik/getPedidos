@@ -1,0 +1,4 @@
+.multiline-select li a span.text {
+	word-wrap: break-word;
+	white-space: normal;
+}

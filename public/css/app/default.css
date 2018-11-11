@@ -1,0 +1,114 @@
+
+/* ==================================================
+ * Reset
+ * ================================================== */
+ .no-padding {
+ 	padding: 0 !important;
+ }
+ 
+
+/* ==================================================
+ * Form
+ * ================================================== */
+.short_linespacing .form-group {
+	margin-bottom: 8px;
+}
+label.icheckbox {
+	margin-right: 10px;
+}
+label.icheckbox:last-child {
+	margin-right: 0;
+}
+.btn-obrigatorio {
+    background-color: #EEE8AA;
+    border-color: #ccc;
+    color: #333;
+}
+
+/* ==================================================
+ * Elements
+ * ================================================== */
+.noty_text a{
+	color: #ffffff;
+}
+.datepicker{
+	z-index:1151 !important;
+}
+
+/* ==================================================
+ * Message Box
+ * ================================================== */
+.message-box .mb-footer button{
+	margin-right: 15px;
+}
+.message-box .mb-footer button:last-child{
+	margin-right: 0;
+}
+
+
+/* ==================================================
+ * Fontes e Labels
+ * ================================================== */
+
+.fontBasicBold {
+	color: #666666;
+	font-weight: 700;
+	text-shadow: 0 1px 0 #ffffff;
+}
+.font12 {
+	font-size: 12px;
+}
+.font14 {
+	font-size: 14px;
+}
+.font16 {
+	font-size: 16px;
+}
+.font18 {
+	font-size: 18px;
+}
+.font20 {
+	font-size: 20px;
+}
+.font22 {
+	font-size: 22px;
+}
+.font24 {
+	font-size: 24px;
+}
+
+
+.blink_text { 
+
+        -webkit-animation-name: blinker;
+ -webkit-animation-duration: 2s;
+ -webkit-animation-timing-function: linear;
+ -webkit-animation-iteration-count: infinite;
+
+ -moz-animation-name: blinker;
+ -moz-animation-duration: 2s;
+ -moz-animation-timing-function: linear;
+ -moz-animation-iteration-count: infinite;
+ animation-name: blinker;
+ animation-duration: 2s;
+ animation-timing-function: linear; 
+    animation-iteration-count: infinite; color: red; 
+} 
+
+@-moz-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; } 
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; } 
+} 
+
+@keyframes blinker {  
+    0% { opacity: 1.0; } 
+    50% { opacity: 0.0; }      
+    100% { opacity: 1.0; } 
+}

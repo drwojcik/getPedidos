@@ -1,0 +1,67 @@
+<?php 
+@session_start();
+?>
+<!DOCTYPE html>
+<html lang="pt-br" class="body-full-height">
+<head>        
+	<!-- META SECTION -->
+    <title>ERP SCAM :: Erro no sistema</title>            
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- END META SECTION -->
+        
+    <!-- Le styles -->
+    <link type="image/x-icon" href="/img/softwar-favicon.ico" rel="icon">
+    <link id="theme" href="/css/theme-default.css" type="text/css" rel="stylesheet">
+</head>
+<body>                                                
+	
+	<!-- PAGE CONTENT WRAPPER -->
+	<div class="page-content-wrap">
+		<div class="row">
+			<div class="col-md-12">			
+				<div class="error-container">
+					<div class="error-text">Erro ao processar a página</div>
+					<div class="error-subtext" style="text-align: justify !important;">
+						<div class="alert alert-warning" role="alert">
+							<strong>Isso não é bom</strong><br><br>
+							Ocorreu um erro ao realizar o processamento da página. 
+			                Nosso suporte técnico já foi notificado sobre o erro ocorrido, mas caso deseje
+			                você pode <a href="/log/<?php echo $_SESSION['erro_nomearquivo']; ?>">clicar aqui</a> 
+			                para baixar o arquivo que contém detalhes sobre o que ocorreu
+			                e nos enviar através do e-mail 
+			                <a href="mailto:suporte@softwar.com.br">suporte@softwar.com.br</a>
+						</div>
+					</div>
+					<div class="error-actions">                                
+						<div class="row">
+							<div class="col-md-12">
+								<a class="btn btn-info btn-block btn-lg" href="/">
+									Página Inicial
+								</a>
+							</div>
+						</div>                                
+					</div>				
+				</div>
+				<?php
+				//unset($_SESSION['erro_nomearquivo']);
+				?>
+			</div>
+		</div>													
+	</div>                
+	<!-- END PAGE CONTENT WRAPPER -->
+	
+
+	<!-- START PRELOADS -->
+	<audio id="audio-alert" src="/audio/alert.mp3" preload="auto"></audio>
+	<audio id="audio-fail" src="/audio/fail.mp3" preload="auto"></audio>
+	<!-- END PRELOADS -->
+
+	<!-- START SCRIPTS -->
+		<script src="/js/plugins/jquery/jquery.min.js" type="text/javascript"></script>
+		<script src="/js/plugins/jquery/jquery-ui.min.js" type="text/javascript"></script>
+		<script src="/js/plugins/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+    <!-- END SCRIPTS -->
+</body>
+</html>

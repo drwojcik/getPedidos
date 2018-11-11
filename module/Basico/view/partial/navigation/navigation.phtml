@@ -1,0 +1,136 @@
+<?php
+/* @var $container Zend\Navigation\Navigation */
+$container = $this->container;
+
+foreach ( $container as $page ) {
+	if (! $this->navigation ()->accept ( $page ))
+		continue;
+		
+		/* @var $page Zend\Navigation\Page\Mvc */
+	$hasChildren = $page->hasPages ();
+	
+	if (! $hasChildren) {
+		// ------------------------------------------------------------
+		// NIVEL 1 - SEM SubLinks
+		// ------------------------------------------------------------
+		?>
+<li <?php if ($page->isActive()) echo ' class="active"' ?>>
+	<a href="<?php echo $page->getHref() ?>"
+		<?php if ($page->getTarget() != ""){ ?>
+		target="<?php echo $page->getTarget(); ?>" <?php }; ?>>
+	<?php if ($page->get("icon") !== ""){ ?>
+		<span class="<?php echo $page->get("icon"); ?>"></span>
+	<?php }; ?>
+		<span class="xn-text"><?php echo $page->getLabel(); ?></span>
+	</a>
+</li>
+<?php
+	} else {
+		// ------------------------------------------------------------
+		// NIVEL 1 - COM SubLinks
+		// ------------------------------------------------------------
+		
+		// check if access is allowed at least one item
+		$access = false;
+		foreach ( $page->getPages () as $child ) {
+			if ($this->navigation ()->accept ( $child ) && $child->get ( "separator" ) !== true) {
+				$access = true;
+			}
+		}
+		if ($access) {
+			$PageLabel = $page->getLabel ();
+			
+			?>
+<li class="xn-openable <?php if ($page->isActive(true)) echo 'active' ?>">
+	<a href="<?php echo $page->getHref() ?>">
+		<?php if ($page->get("icon") !== ""){ ?>
+			<span class="<?php echo $page->get("icon"); ?>"></span>
+		<?php } ?>
+		<span class="xn-text"><?php echo $page->getLabel(); ?></span>
+	</a>
+	<ul>
+					<?php
+			foreach ( $page->getPages () as $child ) { // ForeachNivel 2
+				if (! $this->navigation ()->accept ( $child ))
+					continue;
+				
+				if ($child->get ( "separator" ) === true) {
+					?>                        		
+							<li class="divider"></li>
+							<?php
+					continue;
+				}
+				
+				// verifica se possui filhos
+				$hasChildren = $child->hasPages ();
+				
+				if (! $hasChildren) {
+					// ------------------------------------------------------------
+					// NIVEL 2 - SEM SubLinks
+					// ------------------------------------------------------------
+					?>							
+						<li <?php if ($child->isActive()) echo ' class="active"' ?>><a
+			href="<?php echo $child->getHref() ?>"
+			<?php if ($child->getTarget() != ""){ ?>
+			target="<?php echo $child->getTarget(); ?>" <?php } ?>>
+								<?php if ($child->get("icon") !== ""){ ?>
+									<span class="<?php echo $child->get("icon"); ?>"></span>
+								<?php } ?>
+								<?php echo $child->getLabel(); ?>
+								</a></li>
+						<?php
+				} else {
+					// ------------------------------------------------------------
+					// NIVEL 2 - COM SubLinks
+					// ------------------------------------------------------------
+					?>
+						
+							<li
+			class="xn-openable <?php if ($child->isActive(true)) echo 'active' ?>">
+			<a href="<?php echo $child->getHref() ?>">
+								<?php if ($child->get("icon") !== ""){ ?>
+									<span class="<?php echo $child->get("icon"); ?>"></span>
+								<?php } ?>
+								<?php echo $child->getLabel(); ?>
+							</a>
+			<ul>                			
+								<?php
+					foreach ( $child->getPages () as $nivel3 ) { // ForeachNivel 3
+					                                         // ------------------------------------------------------------
+					                                         // NIVEL 3
+					                                         // ------------------------------------------------------------
+						
+						if ($nivel3->get ( "separator" ) === true) {
+							?>
+										<li class="divider"></li>
+										<?php
+							continue;
+						}
+						?>
+									
+									<li <?php if ($nivel3->isActive()) echo ' class="active"' ?>><a
+					href="<?php echo $nivel3->getHref() ?>"
+					<?php if ($nivel3->getTarget() != ""){ ?>
+					target="<?php echo $nivel3->getTarget(); ?>" <?php } ?>>
+											<?php if ($nivel3->get("icon") !== ""){ ?>
+												<span class="<?php echo $nivel3->get("icon"); ?>"></span>
+											<?php } ?>
+											<?php echo $nivel3->getLabel(); ?>
+										</a></li>
+								<?php
+					} // END ForeachNivel 3
+					?>                				
+								</ul>
+		</li>
+							
+						<?php
+				}
+				?>
+					<?php
+			} // END ForeachNivel 2
+			?>                        
+				</ul>
+</li>
+<?php } ?>
+	<?php } ?>
+<?php } ?>
